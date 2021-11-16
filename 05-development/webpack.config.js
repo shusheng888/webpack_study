@@ -12,8 +12,8 @@ module.exports={
         //每次打包之前，清除dist文件夹
         clean: true
     },
-    //模式，有production、environment和none三种
-    mode: "none",
+    //模式，有production、development和none三种
+    mode: "development",
     plugins: [
         //通过new的方式实例化HtmlWebpackPlugin
         new HtmlWebpackPlugin({
@@ -26,7 +26,7 @@ module.exports={
         })
     ],
     devServer: {
-      static:'./dist/index.html'
+      static:'./dist'
     },
     devtool: 'inline-source-map',
 }
