@@ -1,6 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const svgToMiniDataURI = require('mini-svg-data-uri');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 module.exports={
     //入口文件
     entry: './src/index.js',
@@ -15,7 +17,7 @@ module.exports={
         assetModuleFilename: "images/[contenthash][ext][query]"
     },
     //模式，有production、development和none三种
-    mode: "development",
+    mode: "production",
     plugins: [
         //通过new的方式实例化HtmlWebpackPlugin
         new HtmlWebpackPlugin({
@@ -25,6 +27,10 @@ module.exports={
             filename: "app.html",
             //注入到html模版的什么位置，有值true、false、'head'、'body'
             inject: 'body'
+        }),
+        new MiniCssExtractPlugin({
+            //filename不传默认是main.css
+            filename:'styles/[contenthash].css'
         })
     ],
     //devServer.static属性配置打包文件路径
@@ -82,9 +88,20 @@ module.exports={
             },
             {
                 //使用正则匹配后缀为.css的文件
-                test: /\.css$/,
-                use: ['style-loader','css-loader']
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader,'css-loader'],
+            },
+            {
+                //使用正则匹配后缀为.less的文件
+                test: /\.less$/i,//针对less样式，先用less-loader解析，再用css-loader和style-loader通用解析，逆序解析
+                use: ['style-loader','css-loader','less-loader'],
             }
+        ]
+    },
+    //优化配置
+    optimization: {
+        minimizer: [
+            new CssMinimizerWebpackPlugin(),
         ]
     }
 }

@@ -3,7 +3,8 @@ import imgSrc1 from './assets/img-1.png'
 import imgSrc2 from './assets/img-2.svg'
 import dataJson from './assets/example.json'
 import imgSrc3 from './assets/img-3.jpeg'
-import './style.css'
+import './style.less'
+import './style1.css'
 document.body.classList.add('hello')
 helloWord();
 
