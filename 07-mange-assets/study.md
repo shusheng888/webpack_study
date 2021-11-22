@@ -25,3 +25,11 @@ devtool属性需要设置为'inline-source-map',可以在开发环境的源代�
     2.asset/inline————>base64编码<br/>
     3.asset/source————>源代码<br/>
     4.asset————>根据文件大小阀值，智能选择resource和inline<br/>
+###管理资源
+webpack只能解析js和json文件，而loader可以让webpack去处理其他类型的文件，然后转换为对应模块<br/>
+loader有两个属性，use和test，
+####production和development的环境是不一样的
+loader链式调用，逆序加载，webpack期望链式调用最后的loader返回JavaScript。
+style-loader、css-loader用来加载css样式表文件
+抽离css文件插件：mini-css-extract-plugin，需要在webpack5版本下工作
+压缩css文件插件：css-minimizer-webpack-plugin，需要在optimization.minimizer属性下
